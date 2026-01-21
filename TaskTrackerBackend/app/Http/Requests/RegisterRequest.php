@@ -30,4 +30,31 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'string', 'min:6'],
         ];
     }
+
+    /**
+     * Define the error messages if validation rules are not met
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        // Create an array of custom error messages
+        $messages = [
+            'first_name.required' => 'First name is a required field',
+            'first_name.string' => 'First name must be of data type string',
+            'first_name.max' => 'First name must not exceed 55 characters',
+            'last_name.required' => 'Last name is a required field',
+            'last_name.string' => 'Last name must be of data type string',
+            'last_name.max' => 'Last name must not exceed 55 characters',
+            'email.required' => 'Email is a required field',
+            'email.email' => 'The email entered must be a valid email',
+            'email.unique' => 'This email already has an account connected to it',
+            'email.max' => 'Email must not exceed 100 characters',
+            'password.required' => 'Password is a required field',
+            'password.string' => 'Password must be of data type string',
+            'password.min' => 'Password must be at least 6 characters'
+        ];
+
+        // Return the array
+        return $messages;
+    }
 }
