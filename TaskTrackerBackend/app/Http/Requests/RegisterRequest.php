@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:55'],
             'last_name' => ['required', 'string', 'max:55'],
-            'email' => ['required', 'email', 'unique:users', 'max:100'],
+            'email' => ['required', 'string', 'email', 'unique:users', 'max:100'],
             'password' => ['required', 'string', 'min:6'],
         ];
     }
@@ -46,6 +46,7 @@ class RegisterRequest extends FormRequest
             'last_name.string' => 'Last name must be of data type string',
             'last_name.max' => 'Last name must not exceed 55 characters',
             'email.required' => 'Email is a required field',
+            'email.string' => 'Email must be of data type string',
             'email.email' => 'The email entered must be a valid email',
             'email.unique' => 'This email already has an account connected to it',
             'email.max' => 'Email must not exceed 100 characters',
