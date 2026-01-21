@@ -11,7 +11,8 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // Authorize the user to continue
+        return true;
     }
 
     /**
@@ -21,8 +22,10 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Define the validation rules to be used when a user tries to login
         return [
-            //
+            'email' => ['required', 'string', 'email', 'max:100'],
+            'password' => ['required', 'string', 'min:6']
         ];
     }
 }
