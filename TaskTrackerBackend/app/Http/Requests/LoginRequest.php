@@ -28,4 +28,25 @@ class LoginRequest extends FormRequest
             'password' => ['required', 'string', 'min:6']
         ];
     }
+
+    /**
+     * Create custom error messages for the validation rules
+     * @return array{string, string}
+     */
+    public function messages(): array
+    {
+        // Create an array of custom error messages
+        $messages = [
+            'email.required' => 'Email is a required field',
+            'email.string' => 'Email must be of data type string',
+            'email.email' => 'The email you enter must be a valid email',
+            'email.max' => 'Email can\'t exceed 100 characters',
+            'password.required' => 'Password is a required field',
+            'password.string' => 'Password must be of data type string',
+            'password.min' => 'Password must be at least 6 characters'
+        ];
+
+        // Return the error messages
+        return $messages;
+    }
 }
