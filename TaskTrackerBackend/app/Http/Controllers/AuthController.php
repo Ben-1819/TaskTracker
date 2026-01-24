@@ -50,4 +50,19 @@ class AuthController extends Controller
             'user' => $user
         ], 201);
     }
+
+    public function login(LoginRequest $request)
+    {
+
+    }
+
+    public function logout()
+    {
+
+    }
+
+    public function getUser()
+    {
+
+    }
 }
