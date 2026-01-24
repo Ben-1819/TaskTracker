@@ -53,7 +53,29 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
+        log::info('Login function triggered');
 
+        // Create a variable called credentials and set it to the username and password
+        $credentials = $request->only(['email', 'password']);
+
+        // Try to log the user in
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                // Return a JSON response telling the user the credentials were invalid
+                log::info('User\'s credentials are invalid');
+                return response()->json(['invalid_credentials' => 'The username or password entered was incorrect'], 401);
+            }
+        } catch (JWTException $e) {
+            log::error('There was an error logging in: {error}', ['error' => $e->getMessage()]);
+            // Return a response telling the user that a token could not be made
+            return response()->json(['token_error' => 'Could not create token'], 500);
+        }
+
+        // Return the token and when it expires
+        return response()->json([
+            'token' => $token,
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 
     public function logout()
