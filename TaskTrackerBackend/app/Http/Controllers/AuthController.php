@@ -80,7 +80,17 @@ class AuthController extends Controller
 
     public function logout()
     {
+        log::info('Logout function triggered');
+        // Try to invalidate the JWT currently held by the user
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+        } catch (JWTException $e) {
+            log::error('There was an error logging out: {error}', ['error' => $e->getMessage()]);
+            return response()->json(['logout_error' => 'Failed to logout, please try again'], 500);
+        }
 
+        // Return a json response saying the user is successfully logged out
+        return response()->json(['logout_success' => 'Successfully logged out']);
     }
 
     public function getUser()
