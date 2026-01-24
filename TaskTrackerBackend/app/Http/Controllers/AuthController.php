@@ -95,6 +95,21 @@ class AuthController extends Controller
 
     public function getUser()
     {
-
+        log::info('getUser function triggered');
+        // use a try-catch block to see if there is a user logged in
+        try {
+            $user = Auth::user();
+            // If there is no user logged in
+            if (!$user) {
+                log::info('There is no user currently logged in');
+                return response()->json(['no_user' => 'User not found'], 404);
+            }
+            log::info('There is a user logged in');
+            // Return a JSON response with logged in user
+            return response()->json($user);
+        } catch (JWTException $e) {
+            log::error('There is an error checking if a user is logged in: {error}', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'Failed to fetch user profile'], 500);
+        }
     }
 }
