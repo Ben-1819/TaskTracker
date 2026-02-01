@@ -15,4 +15,13 @@ class Task extends Model
         'date_due',
         'complete',
     ];
+
+    /**
+     * Define the relationship between users and tasks - a task belongs to a single user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, Task>
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
