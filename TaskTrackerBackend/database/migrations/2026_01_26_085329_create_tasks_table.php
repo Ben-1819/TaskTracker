@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('category');
             $table->date('date_set');
             $table->date('date_due');
-            $table->boolean('complete');
+            $table->boolean('complete')->default(false);
             $table->timestamps();
         });
     }
