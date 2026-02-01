@@ -46,4 +46,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Define the relationship between users and tasks - A single user can have many tasks
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Task, User>
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
