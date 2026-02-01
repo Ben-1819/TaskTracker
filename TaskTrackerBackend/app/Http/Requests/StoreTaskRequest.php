@@ -45,6 +45,8 @@ class StoreTaskRequest extends FormRequest
             'description.required' => 'Description is a required field',
             'description.string' => 'Description must be a string',
             'description.max' => 'Description must be 255 characters or less',
+            'category.required' => 'Category is a required field',
+            'category.string' => 'Category must be of data type string',
             'date_due.required' => 'Date due is a required field',
             'date_due.date' => 'Date due must be a valid date',
             'date_due.after' => 'Date due must be a date in the future'
