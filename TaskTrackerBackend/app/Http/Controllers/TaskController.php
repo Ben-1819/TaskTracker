@@ -13,7 +13,11 @@ class TaskController extends Controller
 {
     public function index()
     {
-
+        log::info('Index method running');
+        $tasks = Task::where('user_id', Auth::user()->id);
+        return response()->json([
+            'all_tasks' => $tasks
+        ], 200);
     }
 
     public function store(StoreTaskRequest $request)
