@@ -68,6 +68,32 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, $id)
     {
+        Log::info('update fuction in task controller running');
+
+        // Validate the users input
+        $request->validated();
+
+        Log::info('The users input is valid');
+
+        // Get the current task record
+        $oldTask = Task::find($id);
+
+        // Update the task
+        $task = Task::where('id', $id)->update([
+            'user_id' => $oldTask->user_id,
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'category' => $request['category'],
+            'date_set' => $oldTask->date_set,
+            'date_due' => $request['date_due'],
+            'complete' => $oldTask->complete
+        ]);
+        Log::info('Task updated successfully');
+
+        // Return a success message with a json response
+        return response()->json([
+            'success' => 'Task updated successfully'
+        ], 200);
     }
 
     public function complete($id)
