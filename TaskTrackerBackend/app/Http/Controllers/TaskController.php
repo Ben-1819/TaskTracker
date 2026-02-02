@@ -55,6 +55,15 @@ class TaskController extends Controller
 
     public function show($id)
     {
+        Log::info('Show method in task controller running');
+
+        // Get the task that has a matching id
+        $task = Task::find($id);
+
+        // Return the task in a json response
+        return response()->json([
+            'task' => $task
+        ], 201);
     }
 
     public function update(UpdateTaskRequest $request, $id)
