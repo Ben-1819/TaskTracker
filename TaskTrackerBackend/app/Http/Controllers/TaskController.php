@@ -124,5 +124,15 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
+        log::info("destroy function in task controller running");
+
+        // Delete the specified record from the friends table
+        Task::where("id", $id)->delete();
+        log::info("Task successfully deleted");
+
+        // Return a json response with a success message
+        return response()->json([
+            "success" => "Task successfully deleted",
+        ], 200);
     }
 }
