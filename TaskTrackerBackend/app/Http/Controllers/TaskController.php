@@ -96,8 +96,31 @@ class TaskController extends Controller
         ], 200);
     }
 
-    public function complete($id)
+    public function complete(Request $request, $id)
     {
+        Log::info('complete function in task controller running');
+
+        $request->validated();
+
+        // Find the record of the task that is being set to complete
+        $task = Task::find($id);
+
+        // Update the task to be complete
+        $completedTask = Task::where('id', $id)->update([
+            'user_id' => $task->user_id,
+            'name' => $task->name,
+            'description' => $task->description,
+            'category' => $task->category,
+            'date_set' => $task->date_set,
+            'date_due' => $task->date_due,
+            'complete' => $request['complete']
+        ]);
+        Log::info('Task set to complete');
+
+        // Return a success message to the user
+        return response()->json([
+            'success' => 'Task successfully set to complete',
+        ], 200);
     }
 
     public function destroy($id)
