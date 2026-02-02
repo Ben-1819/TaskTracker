@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 
@@ -22,6 +23,34 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
+        Log::info('Store function in TaskController running');
+
+        // Validate the users input
+        $request->validated();
+
+        // Create a new record in the task table
+        $task = new Task([
+            'user_id' => Auth::user()->id,
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'category' => $request['category'],
+            'date_set' => Carbon::now(),
+            'date_due' => $request['date_due'],
+        ]);
+
+        $task->save();
+
+        Log::info('New task saved');
+        Log::info('Task name: {taskName}', ['taskName' => $task->name]);
+        Log::info('Task description {taskDescription}', ['taskDescription' => $task->description]);
+        Log::info('Task category: {taskCategory}', ['taskCategory' => $task->category]);
+        Log::info('Date set: {dateSet}', ['dateSet' => $task->date_set]);
+        Log::info('Date due: {dateDue}', ['dateDue' => $task->date_due]);
+
+        // Return a json response saying the task was successfully created
+        return response()->json([
+            'success' => 'Task successfully created'
+        ], 201);
     }
 
     public function show($id)
