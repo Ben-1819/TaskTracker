@@ -100,22 +100,21 @@ class TaskController extends Controller
     {
         Log::info('complete function in task controller running');
 
-        $request->validated();
+        $validated = $request->validated([
+            'complete' => ['required', 'boolean'],
+        ]);
 
         // Find the record of the task that is being set to complete
-        $task = Task::find($id);
+        $task = Task::findOrFail($id);
 
         // Update the task to be complete
-        $completedTask = Task::where('id', $id)->update([
-            'user_id' => $task->user_id,
-            'name' => $task->name,
-            'description' => $task->description,
-            'category' => $task->category,
-            'date_set' => $task->date_set,
-            'date_due' => $task->date_due,
-            'complete' => $request['complete']
+        $task->update([
+            'complete' => $validated['complete'],
         ]);
-        Log::info('Task set to complete');
+        Log::info('Task completion status updated', [
+            'task_id' => $task->id,
+            'complete' => $validated['complete']
+        ]);
 
         // Return a success message to the user
         return response()->json([
