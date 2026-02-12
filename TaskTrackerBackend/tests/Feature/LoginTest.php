@@ -24,7 +24,7 @@ describe('Tests to check that the login method works as intended', function(){
             'token',
             'expires_in',
         ]);
-    })->only();
+    });
 
     it('tests that the login method doesn\'t work when the user enters invalid data and the account does\'t exist', function(){
         $response = $this->postJson('/api/login',[
