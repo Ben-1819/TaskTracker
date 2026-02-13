@@ -54,7 +54,13 @@ function something()
 function createTask($user){
     // Use the task factory to create a task
     $task = Task::factory()->createOne([
-        'user_id'=> $user->id
+        'user_id'=> $user->id,
+        'name' => 'example task',
+        'description' => 'example description',
+        'category' => 'example category',
+        'date_set' => Date::today(),
+        'date_due' => Date::tomorrow(),
+        'complete' => false,
     ]);
 
     return $task;
