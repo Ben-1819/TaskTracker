@@ -100,7 +100,7 @@ class TaskController extends Controller
     {
         Log::info('complete function in task controller running');
 
-        $validated = $request->validated([
+        $validated = $request->validate([
             'complete' => ['required', 'boolean'],
         ]);
 

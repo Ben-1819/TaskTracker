@@ -1,4 +1,5 @@
 <?php
+use App\Models\Task;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,8 +13,12 @@
 */
 
 pest()->extend(Tests\TestCase::class)
- // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
+
+pest()->extend(Tests\TestCase::class)
+    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+    ->in('Unit');
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +49,19 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function createTask($user){
+    // Use the task factory to create a task
+    $task = Task::factory()->createOne([
+        'user_id'=> $user->id,
+        'name' => 'example task',
+        'description' => 'example description',
+        'category' => 'example category',
+        'date_set' => Date::today(),
+        'date_due' => Date::tomorrow(),
+        'complete' => false,
+    ]);
+
+    return $task;
 }

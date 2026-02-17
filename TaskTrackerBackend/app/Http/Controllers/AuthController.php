@@ -74,7 +74,7 @@ class AuthController extends Controller
         // Return the token and when it expires
         return response()->json([
             'token' => $token,
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
 

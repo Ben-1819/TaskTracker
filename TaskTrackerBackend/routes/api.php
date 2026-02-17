@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 
-Route::contoller(AuthController::class)->group(function(){
+Route::controller(AuthController::class)->group(function(){
     Route::post('/register', 'register');
     Route::post('/login', 'login');
 });
