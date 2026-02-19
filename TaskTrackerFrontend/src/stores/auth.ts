@@ -1,16 +1,18 @@
 import { defineStore } from 'pinia';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
-type AuthUser = {
-  id: number;
+type userId = number;
+
+interface AuthUser {
+  id: userId;
   name: string;
   email: string;
-};
+}
 
-type AuthState = {
+interface AuthState {
   user: AuthUser | null;
   token: string | null;
-};
+}
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
@@ -33,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
       localStorage.removeItem('token');
     },
 
-    async fetchUser() {
+    async fetchUser(): Promise<void> {
       if (!this.token) {
         console.log('There is no token, running logout');
         this.logout();
