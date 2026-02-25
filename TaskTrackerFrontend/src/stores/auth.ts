@@ -4,8 +4,9 @@ import axios from 'axios';
 type userId = number;
 
 interface AuthUser {
-  id: userId;
-  name: string;
+  id: number;
+  first_name: string;
+  last_name: string;
   email: string;
 }
 
