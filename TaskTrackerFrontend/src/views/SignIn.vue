@@ -93,10 +93,19 @@ const goToHome = (): void => {
     name: 'Home',
   });
 };
+
+const goToRegister = (): void => {
+  router.push({
+    name: 'Register',
+  });
+};
 </script>
 
 <template>
-  <div class="grid w-full max-w-sm gap-6">
+  <div class="pt-5 text-center">
+    <h1 class="text-2xl text-green-500">Log in to your account</h1>
+  </div>
+  <div class="flex flex-col justify-center items-center align-center gap-10 pt-15 max-w-md mx-auto">
     <InputGroup>
       <InputGroupInput
         type="email"
@@ -128,6 +137,13 @@ const goToHome = (): void => {
         validationErrors.password
       }}</Label>
     </InputGroup>
-    <Button variant="default" type="submit" @click="attemptLogin">Log in</Button>
+    <div class="flex flex-row gap-5">
+      <Button variant="outline" size="default" class="text-green-600 max-w-sm" @click="attemptLogin"
+        >Log in</Button
+      >
+      <Button variant="outline" size="default" class="text-green-600 max-w-sm" @click="goToRegister"
+        >Register for an account</Button
+      >
+    </div>
   </div>
 </template>
