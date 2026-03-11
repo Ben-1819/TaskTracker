@@ -3,6 +3,8 @@ import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 import { onMounted, reactive } from 'vue';
 import { Button } from '@/components/ui/button';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import Sidebar from '@/components/Sidebar.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -44,6 +46,15 @@ const goToSignIn = (): void => {
 </script>
 
 <template>
-  <div class="flex justify-center">{{ user.firstName }} {{ user.lastName }}</div>
-  <Button @click="logout">Logout</Button>
+  <SidebarProvider>
+    <Sidebar :first-name="user.firstName" :last-name="user.lastName" @logout-event="logout" />
+    <main class="w-full">
+      <div class="flex justify-start">
+        <SidebarTrigger />
+      </div>
+      <div class="flex justify-center">
+        <h1 class="text-xl">Home</h1>
+      </div>
+    </main>
+  </SidebarProvider>
 </template>
