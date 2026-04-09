@@ -21,6 +21,58 @@ class TaskController extends Controller
         ], 200);
     }
 
+    public function completedTasks()
+    {
+        log::info('completedTasks method running');
+
+        // Get all of the tasks belonging to the user where completed is true
+        $completedTasks = Task::where('user_id', Auth::user()->id)
+            ->whereIn("complete", true)
+            ->get();
+
+        log::info('All completed tasks retrieved');
+
+        // return the tasks in a json response
+        return response()->json([
+            'completed_tasks' => $completedTasks
+        ], 200);
+    }
+
+    public function incompleteTasks()
+    {
+        log::info('incompletedTasks method running');
+
+        // Get all of the tasks belonging to the user where complete is false and it is past the due date
+        $incompleteTasks = Task::where('user_id', Auth::user()->id)
+            ->whereIn('complete', false)
+            ->whereDate('date_due', '<', Carbon::now())
+            ->get();
+
+        log::info('All incomplete tasks retrieved');
+
+        // Return the tasks in a json response
+        return response()->json([
+            'incomplete_tasks' => $incompleteTasks
+        ], 200);
+    }
+
+    public function currentTasks()
+    {
+        log::info("currentTasks method running");
+
+        // Get all of the tasks belonging to the user where complete is false and it is not past the due date yet
+        $currentTasks = Task::where('user_id', Auth::user()->id)
+            ->whereComplete(false)
+            ->whereDate('date_due', '>', Carbon::now())
+            ->get();
+
+        log::info('All in progress tasks retrieved');
+
+        return response()->json([
+            'current_tasks' => $currentTasks
+        ], 200);
+    }
+
     public function store(StoreTaskRequest $request)
     {
         Log::info('Store function in TaskController running');
