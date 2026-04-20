@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import SelectLabel from './ui/select/SelectLabel.vue';
 
 const props = defineProps<{
   taskCategory: string | null;
@@ -31,7 +32,10 @@ const selectCategory = (category: unknown) => {
       <SelectValue placeholder="Select Category" />
     </SelectTrigger>
     <SelectContent>
-      <SelectItem v-for="item in taskCategories" :key="item" :value="item">{{ item }}</SelectItem>
+      <SelectGroup>
+        <SelectLabel>Task Categories</SelectLabel>
+        <SelectItem v-for="item in taskCategories" :key="item" :value="item">{{ item }}</SelectItem>
+      </SelectGroup>
     </SelectContent>
   </Select>
 </template>
