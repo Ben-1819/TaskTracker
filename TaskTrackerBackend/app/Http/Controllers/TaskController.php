@@ -15,7 +15,7 @@ class TaskController extends Controller
     public function index()
     {
         log::info('Index method running');
-        $tasks = Task::where('user_id', Auth::user()->id);
+        $tasks = Task::where('user_id', Auth::user()->id)->get();
         return response()->json([
             'all_tasks' => $tasks
         ], 200);
