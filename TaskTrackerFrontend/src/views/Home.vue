@@ -45,9 +45,9 @@ const goToSignIn = (): void => {
 };
 
 const goToCreateTask = (): void => {
-  // router.push({
-  //   name: 'CreateTask'
-  // });
+  router.push({
+    name: 'CreateTask',
+  });
 };
 
 const goToViewTasks = (): void => {
