@@ -65,7 +65,9 @@ const truncateText = (text: string, maxLength: number): string => {
     </div>
     <div class="p-4 flex justify-between items-center">
       <TrashIcon />
-      <Button variant="outline" class="text-green-600 border-2 border-solid border-green-600 p-2"
+      <Button
+        variant="outline"
+        class="text-green-600 border-2 border-solid border-green-600 p-2 rounded-md"
         >Complete Task</Button
       >
       <EditIcon />
