@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import {
   Sidebar,
   SidebarContent,
@@ -15,9 +16,15 @@ import {
 import { HomeIcon, NotebookIcon, NotebookPenIcon, UserIcon } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
+const router = useRouter();
+
 const props = defineProps<{
   firstName: string | undefined;
   lastName: string | undefined;
+}>();
+
+const emit = defineEmits<{
+  (e: 'logoutEvent'): void;
 }>();
 
 interface SidebarItems {
@@ -65,7 +72,7 @@ const sidebarItems = ref<SidebarItems[]>([
         <SidebarMenu>
           <SidebarMenuItem v-for="sidebarItem in sidebarItems" :key="sidebarItem.title">
             <SidebarMenuButton as-child>
-              <a @click="">
+              <a @click.prevent="router.push({ name: sidebarItem.name })">
                 <component :is="sidebarItem.icon" />
                 <span>{{ sidebarItem.title }}</span>
               </a>
@@ -76,7 +83,7 @@ const sidebarItems = ref<SidebarItems[]>([
     </SidebarContent>
     <SidebarFooter>
       <div class="flex justify-center">
-        <Button variant="outline" class="text-green-600" @click="$emit('logoutEvent')">
+        <Button variant="outline" class="text-green-600" @click="emit('logoutEvent')">
           Logout
         </Button>
       </div>
