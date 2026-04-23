@@ -27,7 +27,7 @@ class TaskController extends Controller
 
         // Get all of the tasks belonging to the user where completed is true
         $completedTasks = Task::where('user_id', Auth::user()->id)
-            ->whereIn("complete", true)
+            ->whereComplete(true)
             ->get();
 
         log::info('All completed tasks retrieved');
@@ -44,7 +44,7 @@ class TaskController extends Controller
 
         // Get all of the tasks belonging to the user where complete is false and it is past the due date
         $incompleteTasks = Task::where('user_id', Auth::user()->id)
-            ->whereIn('complete', false)
+            ->whereComplete(false)
             ->whereDate('date_due', '<', Carbon::now())
             ->get();
 
