@@ -59,6 +59,6 @@ const emitTaskCreation = () => {
 
     <DatePicker :initial-date="taskDetails.dateDue" @emit-due-date="taskDetails.dateDue = $event" />
 
-    <Button @click="emitTaskCreation">Create Task</Button>
+    <Button variant="outline" class="text-green-600" @click="emitTaskCreation">Create Task</Button>
   </div>
 </template>
