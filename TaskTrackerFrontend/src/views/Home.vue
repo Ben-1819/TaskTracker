@@ -51,9 +51,9 @@ const goToCreateTask = (): void => {
 };
 
 const goToViewTasks = (): void => {
-  // router.push({
-  //   name: 'TaskIndex'
-  // });
+  router.push({
+    name: 'Tasks',
+  });
 };
 
 const goToCurrentTasks = (): void => {
