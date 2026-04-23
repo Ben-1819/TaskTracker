@@ -57,21 +57,21 @@ const goToViewTasks = (): void => {
 };
 
 const goToCurrentTasks = (): void => {
-  // router.push({
-  //   name: 'CurrentTasks'
-  // });
+  router.push({
+    name: 'CurrentTasks',
+  });
 };
 
 const goToIncompleteTasks = (): void => {
-  // router.push({
-  //   name: 'IncompleteTasks'
-  // });
+  router.push({
+    name: 'IncompleteTasks',
+  });
 };
 
 const goToCompletedTasks = (): void => {
-  // router.push({
-  //   name: 'CompletedTasks'
-  // });
+  router.push({
+    name: 'CompletedTasks',
+  });
 };
 </script>
 
