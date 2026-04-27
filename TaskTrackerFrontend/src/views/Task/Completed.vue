@@ -18,13 +18,13 @@ interface User {
 
 interface TaskAPI {
   id: number;
-  userId: number;
+  user_id: number;
   name: string;
   description: string;
   category: string;
   date_set: Date;
   date_due: Date;
-  completed: boolean;
+  complete: boolean;
 }
 
 interface Task {
@@ -80,13 +80,13 @@ const getCompletedTasks = async (): Promise<void> => {
 
     tasks.value = response.data.completed_tasks.map((task: TaskAPI) => ({
       id: task.id,
-      userId: task.userId,
+      userId: task.user_id,
       name: task.name,
       description: task.description,
       category: task.category,
       dateSet: new Date(task.date_set),
       dateDue: new Date(task.date_due),
-      completed: task.completed,
+      completed: task.complete,
     }));
   } catch (error: unknown) {
     console.error(

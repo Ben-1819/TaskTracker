@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { TrashIcon, EditIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
 const router = useRouter();
 
 interface Task {
@@ -19,6 +20,7 @@ defineProps<{
 }>();
 const emits = defineEmits<{
   (e: 'EditTask'): void;
+  (e: 'CompleteTask'): void;
 }>();
 /**
  * formatDate function - formats a date object into a more readable string format like 01 Jan 2026.
@@ -52,6 +54,10 @@ const truncateText = (text: string, maxLength: number): string => {
 const goToEditTask = () => {
   emits('EditTask');
 };
+
+const markTaskComplete = () => {
+  emits('CompleteTask');
+};
 </script>
 
 <template>
@@ -74,6 +80,7 @@ const goToEditTask = () => {
       <Button
         variant="outline"
         class="text-green-600 border-2 border-solid border-green-600 p-2 rounded-md"
+        @click="markTaskComplete()"
         >Complete Task</Button
       >
       <EditIcon @click="goToEditTask()" />

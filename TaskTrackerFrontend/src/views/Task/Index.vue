@@ -19,13 +19,13 @@ interface User {
 
 interface TaskAPI {
   id: number;
-  userId: number;
+  user_id: number;
   name: string;
   description: string;
   category: string;
   date_set: Date;
   date_due: Date;
-  completed: boolean;
+  complete: boolean;
 }
 
 interface Task {
@@ -67,17 +67,16 @@ const getAllTasks = async (): Promise<void> => {
       },
     });
     console.log('Tasks retrieved successfully');
-    console.log(response.data);
     console.log('All tasks:', response.data.all_tasks);
     tasks.value = response.data.all_tasks.map((task: TaskAPI) => ({
       id: task.id,
-      userId: task.userId,
+      userId: task.user_id,
       name: task.name,
       description: task.description,
       category: task.category,
       dateSet: new Date(task.date_set),
       dateDue: new Date(task.date_due),
-      completed: task.completed,
+      completed: task.complete,
     }));
   } catch (error: unknown) {
     console.error('Error fetching tasks:', error);
@@ -102,6 +101,24 @@ const goToEditTask = (taskId: number): void => {
     },
   });
 };
+
+const completeTask = async (taskId: number): Promise<void> => {
+  try {
+    await axios.put(
+      `http://127.0.0.1:8000/api/${taskId}/complete`,
+      {
+        complete: true,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${authStore.token}`,
+        },
+      },
+    );
+  } catch (error: unknown) {
+    console.log(`[COMPLETE-TASK-ERROR] There was an error setting the task to complete ${error}`);
+  }
+};
 </script>
 
 <template>
@@ -117,6 +134,7 @@ const goToEditTask = (taskId: number): void => {
           v-for="task in tasks"
           :key="task.id"
           :task="task"
+          @complete-task="completeTask(task.id)"
           @edit-task="goToEditTask(task.id)"
         />
       </div>
