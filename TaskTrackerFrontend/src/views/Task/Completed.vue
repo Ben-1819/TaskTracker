@@ -94,6 +94,19 @@ const getCompletedTasks = async (): Promise<void> => {
     );
   }
 };
+
+const deleteTask = async (taskId: number): Promise<void> => {
+  try {
+    await axios.delete(`http://127.0.0.1:8000/api/${taskId}/delete`, {
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    });
+    tasks.value = tasks.value.filter((task) => task.id !== taskId);
+  } catch (error: unknown) {
+    console.log(`[TASK-DELETE-ERROR] An error occurred while deleting the task: ${error}`);
+  }
+};
 </script>
 
 <template>
@@ -108,7 +121,12 @@ const getCompletedTasks = async (): Promise<void> => {
         <h2 class="text-xl text-center text-green-600">You have no completed tasks.</h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
+        <TaskCard
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+          @delete-task="deleteTask(task.id)"
+        />
       </div>
     </main>
   </SidebarProvider>

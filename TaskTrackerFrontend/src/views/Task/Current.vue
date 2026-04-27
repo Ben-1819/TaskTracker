@@ -121,6 +121,19 @@ const completeTask = async (taskId: number): Promise<void> => {
     );
   }
 };
+
+const deleteTask = async (taskId: number): Promise<void> => {
+  try {
+    await axios.delete(`http://127.0.0.1:8000/api/${taskId}/delete`, {
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    });
+    tasks.value = tasks.value.filter((task) => task.id !== taskId);
+  } catch (error: unknown) {
+    console.log(`[TASK-DELETE-ERROR] An error occurred while deleting the task: ${error}`);
+  }
+};
 </script>
 
 <template>
@@ -141,6 +154,7 @@ const completeTask = async (taskId: number): Promise<void> => {
           :task="task"
           @complete-task="completeTask(task.id)"
           @edit-task="goToEditTask(task.id)"
+          @delete-task="deleteTask(task.id)"
         />
       </div>
     </main>

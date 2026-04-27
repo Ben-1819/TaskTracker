@@ -21,6 +21,7 @@ defineProps<{
 const emits = defineEmits<{
   (e: 'EditTask'): void;
   (e: 'CompleteTask'): void;
+  (e: 'DeleteTask'): void;
 }>();
 /**
  * formatDate function - formats a date object into a more readable string format like 01 Jan 2026.
@@ -58,6 +59,10 @@ const goToEditTask = () => {
 const markTaskComplete = () => {
   emits('CompleteTask');
 };
+
+const deleteTask = () => {
+  emits('DeleteTask');
+};
 </script>
 
 <template>
@@ -76,7 +81,7 @@ const markTaskComplete = () => {
       <p>Overdue: {{ isOverdue(task.dateDue) ? 'Yes' : 'No' }}</p>
     </div>
     <div class="p-4 flex justify-between items-center">
-      <TrashIcon />
+      <TrashIcon @click="deleteTask()" />
       <Button
         variant="outline"
         class="text-green-600 border-2 border-solid border-green-600 p-2 rounded-md"
