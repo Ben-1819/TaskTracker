@@ -94,6 +94,15 @@ const getIncompleteTasks = async (): Promise<void> => {
     );
   }
 };
+
+const goToEditTask = (taskId: number): void => {
+  router.push({
+    name: 'EditTask',
+    params: {
+      id: taskId,
+    },
+  });
+};
 </script>
 
 <template>
@@ -108,7 +117,12 @@ const getIncompleteTasks = async (): Promise<void> => {
         <h2 class="text-xl text-center text-green-600">You have no incomplete tasks.</h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
+        <TaskCard
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+          @edit-task="goToEditTask(task.id)"
+        />
       </div>
     </main>
   </SidebarProvider>

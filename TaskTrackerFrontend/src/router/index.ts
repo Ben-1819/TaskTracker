@@ -7,6 +7,7 @@ import Index from '@/views/Task/Index.vue';
 import Current from '@/views/Task/Current.vue';
 import Incomplete from '@/views/Task/Incomplete.vue';
 import Completed from '@/views/Task/Completed.vue';
+import Edit from '@/views/Task/Edit.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/task/completed',
       name: 'CompletedTasks',
       component: Completed,
+    },
+    {
+      path: '/task/edit/:id',
+      name: 'EditTask',
+      component: Edit,
     },
   ],
 });

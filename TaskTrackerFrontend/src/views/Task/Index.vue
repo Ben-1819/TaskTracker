@@ -93,6 +93,15 @@ const goToSignIn = (): void => {
     name: 'SignIn',
   });
 };
+
+const goToEditTask = (taskId: number): void => {
+  router.push({
+    name: 'EditTask',
+    params: {
+      id: taskId,
+    },
+  });
+};
 </script>
 
 <template>
@@ -104,7 +113,12 @@ const goToSignIn = (): void => {
       </div>
       <h1 class="text-2xl text-center">All Tasks</h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
+        <TaskCard
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+          @edit-task="goToEditTask(task.id)"
+        />
       </div>
     </main>
   </SidebarProvider>

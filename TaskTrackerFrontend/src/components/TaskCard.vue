@@ -17,7 +17,9 @@ interface Task {
 defineProps<{
   task: Task;
 }>();
-
+const emits = defineEmits<{
+  (e: 'EditTask'): void;
+}>();
 /**
  * formatDate function - formats a date object into a more readable string format like 01 Jan 2026.
  * @param date
@@ -46,6 +48,10 @@ const isOverdue = (date: Date): boolean => {
 const truncateText = (text: string, maxLength: number): string => {
   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 };
+
+const goToEditTask = () => {
+  emits('EditTask');
+};
 </script>
 
 <template>
@@ -70,7 +76,7 @@ const truncateText = (text: string, maxLength: number): string => {
         class="text-green-600 border-2 border-solid border-green-600 p-2 rounded-md"
         >Complete Task</Button
       >
-      <EditIcon />
+      <EditIcon @click="goToEditTask()" />
     </div>
   </div>
 </template>
